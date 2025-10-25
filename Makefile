@@ -110,7 +110,7 @@ examples:
 		$(MAKE) configure; \
 	fi
 	@echo "Building example programs..."
-	$(MAKE) -C $(BUILD_DIR) example_operating_system
+	$(MAKE) -C $(BUILD_DIR) examples
 
 # Build type shortcuts
 .PHONY: debug release

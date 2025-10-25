@@ -26,16 +26,33 @@ set_target_properties(example_operating_system PROPERTIES
 # Add dependency to ensure libraries are built first
 add_dependencies(example_operating_system agpl_utils)
 
+# Example: Quantum Numbers Module Demo
+add_executable(example_quantum_numbers
+    example_quantum_numbers.f90
+)
+
+# Link against the agpl_physics library (which contains quantum_numbers module)
+target_link_libraries(example_quantum_numbers agpl_physics)
+
+# Set output directory for examples
+set_target_properties(example_quantum_numbers PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${EXAMPLE_OUTPUT_DIR}
+    Fortran_MODULE_DIRECTORY ${FORTRAN_MODULE_DIRECTORY}
+)
+
+# Add dependency to ensure libraries are built first
+add_dependencies(example_quantum_numbers agpl_physics)
+
 # Print information about examples
 message(STATUS "Examples will be built in: ${EXAMPLE_OUTPUT_DIR}")
 
 # Optional: Create a target to build all examples
 add_custom_target(examples
-    DEPENDS example_operating_system
+    DEPENDS example_operating_system example_quantum_numbers
     COMMENT "Building all examples"
 )
 
 # Install examples (optional)
-install(TARGETS example_operating_system
+install(TARGETS example_operating_system example_quantum_numbers
     RUNTIME DESTINATION examples
 )
